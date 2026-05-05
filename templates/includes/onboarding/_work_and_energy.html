@@ -1,0 +1,68 @@
+<div class="tab-pane" id="workAndEnergy" role="tabpanel">
+  <form id="workAndEnergyForm" data-key="work_and_energy" method="post" action="#" class="needs-validation" novalidate>
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+    <div>
+      <h4 class="mb-2">Your Work and Energy</h4>
+      <div class="sub-heading">
+        These questions help us understand how your workday supports or drains your energy.
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-sm-6">
+        <div class="mb-3">
+          <label class="form-label medium">Work Start Time</label>
+          <input id="work_start_time" data-value="{{work_and_energy.work_start_time}}" name="work_start_time" class="form-control pick-time-workstart" type="time" placeholder="Time you start working" required {% if work_and_energy.irregular_work_time == '1' %}disabled{% endif %}>
+          <span class="text-muted">What time do you usually <b>start</b> working?</span>
+          <div class="mt-2 mb2 form-check">
+            <input type="hidden" name="irregular_work_time" value="0">
+            <input type="checkbox" class="form-check-input" value="1" name="irregular_work_time" id="irregular_work_time" onchange="enableDisableWorkTimes(this)" {% if work_and_energy.irregular_work_time == '1' %}checked{% endif %}>
+            <label for="irregular_work_time" class="form-label medium">My hours are highly irregular</label>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="mb-3">
+          <label class="form-label medium">Work End Time</label>
+          <input id="work_end_time" data-value="{{work_and_energy.work_end_time}}" name="work_end_time" class="form-control pick-time-workend" type="time" placeholder="Time you stop working" required {% if work_and_energy.irregular_work_time == '1' %}disabled{% endif %}>
+          <span class="text-muted">What time do you usually <b>stop</b> working?</span>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="mb-3">
+          <label class="form-label medium">Daily Stress Level</label>
+          <div class="slider-container">
+            <div class="slider-label-left">Low</div>
+            <input id="daily_stress_level" value="{{work_and_energy.daily_stress_level|default:'5'}}" name="daily_stress_level" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-tooltip="hide" data-slider-value="{{work_and_energy.daily_stress_level|default:'5'}}" />
+            <div class="slider-label-right">High</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="mb-3">
+          <label class="form-label medium">Work-life Balance</label>
+          <div class="slider-container">
+            <div class="slider-label-left">Poor</div>
+            <input id="work_life_balance" value="{{work_and_energy.work_life_balance|default:'5'}}" name="work_life_balance" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-tooltip="hide" data-slider-value="{{work_and_energy.work_life_balance|default:'5'}}" />
+            <div class="slider-label-right">Excellent</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="mb-3">
+          <label class="form-label medium">Workdays Per Week</label>
+          <select name="workdays_per_week" data-value="{{work_and_energy.workdays_per_week}}" class="form-select" required>
+            <option value="" disabled selected></option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+          </select>
+          <span class="text-muted">How many <b>days per week</b> do you usually work?</span>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,57 @@
+{% extends 'layouts/_base_internal.html' %}
+{% load static %}
+
+{% block title %}Dashboard{% endblock title %}
+
+{% block content %}
+  <div class="pc-container">
+    <div class="pc-content">
+      {% if show_banner == '1' %}
+        <div class="row">
+          <div class="col-md-12 col-xl-12">
+            <div class="card welcome-banner bg-secondary">
+              <div class="card-body">
+                <div class="row align-items-center">
+                  <div class="col-sm-8">
+                    <div class="p-2">
+                      <h3 class="text-white">Welcome!</h3>
+                      <div class="lead text-white"><b>Do the right work at the right time</b></div>
+                      <div class="text-white mt-3 mb-4">
+                        Through personalized recommendations drawn from your unique energy needs, match your work tasks with your cognitive peaks for increased performance
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 text-center">
+                    <div class="img-welcome-banner">
+                      <img src="{% static 'assets/images/circa.png' %}" height="100">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+      <div class="row">
+        <div class="col-md-12 col-xl-12">
+          <h4>TBD</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- {% include 'includes/_onboarding_modal.html' %}
+
+  {% include 'includes/_nudge_modal.html' %} -->
+{% endblock content %}
+
+{% block custom_js %}
+  <!-- <script src="{% static 'assets/js/modules/onboarding-wizard.js' %}"></script>
+  <script src="{% static 'assets/js/helpers/onboarding.js' %}"></script>
+  <script src="{% static 'assets/js/helpers/nudges.js' %}"></script> -->
+  <script language="javascript">
+    const mctqApex = {{apex | safe}};
+    const mctqHorizon = {{horizon | safe}};
+    const mctqAurora = {{aurora | safe}};
+  </script>
+{% endblock custom_js %}

@@ -1,0 +1,100 @@
+{% extends 'layouts/_base_internal.html' %}
+{% load static %}
+
+{% block title %}Energy Blueprint{% endblock title %}
+
+{% block content %}
+  <div class="pc-container">
+    <div class="pc-content">
+      {% if user.baseline_survey_detail.completed_at %}
+        <div class="row">
+          <div class="col-md-2 col-lg-2 energy-schedule">
+            <div class="card">
+              <div class="card-header">
+                <div class="energy-schedule-header">
+                  <div>
+                    <h4 class="mb-0">Daily Energy Schedule</h4>
+                    <small>Your energy intensity throughout the day</small>
+                  </div>
+                  <div>
+                    <a href="#" data-bs-toggle="popover" data-bs-placement="top" data-bs-html="true" title="About Your Daily Energy Schedule" data-bs-content="We look at recent recovery patterns, strain signals, sleep, and your natural chronotype to suggest how to pace what’s next.<br><br>This is meant as a short-term planning tool to help you make smarter decisions about your effort and recovery. With more data your planning recommendations will populate here and become more accurate over time.<br><br>Your data is always private and never shared with your employer.">
+                      <i data-feather="info"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                {% for energy_schedule in energy_schedules %}
+                  <div class="energy-schedule-row">
+                    <div class="energy-schedule-time">{{energy_schedule.time}}</div>
+                    <div class="energy-schedule-block" style="background-color: {{energy_schedule.color}};"></div>
+                  </div>
+                {% endfor %}
+                <div class="energy-schedule-row">
+                  <div class="energy-schedule-time">&nbsp;</div>
+                  <div class="energy-schedule-block"><center><span class="text-muted">Today</span></center></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-9 col-lg-9">
+            <div class="card">
+              <div class="card-body">
+                <div class="row align-items-center">
+                  <div class="col-sm-5 text-center">
+                    <img src="/static/assets/images/chronotypes/{{my_chronotype.image_file_primary}}" height="300">
+                  </div>
+                  <div class="col-sm-7">
+                    <div class="p-2">
+                      <h3>You are {{my_chronotype.label_alt}} Chronotype!</h3>
+                      <div><b>{{my_chronotype.tag_line}}</b></div>
+                      <div class="mt-3 mb-3">
+                        <div>
+                          <div class="alert alert-primary d-flex align-items-center p-2" role="alert">
+                            <i class="ti ti-bolt mctq-icons"></i>
+                            <div class="lead"><b>Primary Peak:</b> {{my_chronotype.peak_performance_hours.primary}}</div>
+                          </div>
+                          <div class="alert alert-primary d-flex align-items-center p-2" role="alert">
+                            <i class="ti ti-bolt mctq-icons"></i>
+                            <div class="lead"><b>Secondary Peak:</b> {{my_chronotype.peak_performance_hours.secondary}}</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div><b>{{my_chronotype.short_description}}</b></div>
+                      <div>
+                        <a href="/static/assets/files/chronotypes/{{my_chronotype.download_file_primary}}" class="btn btn-primary mt-3" download="YourRecommendedSchedule.pdf">Download Schedule Image</a>
+                        &nbsp;&nbsp;<a href="javascript: showOnboardingModal()" class="btn btn-primary mt-3" download="YourRecommendedSchedule.pdf">Access Baseline Survey</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% if not energy_schedule_message_shown %}
+              <div class="card">
+                <div class="card-header thin">
+                  <h4>About Your Daily Energy Schedule</h4>
+                </div>
+                <div class="card-body">
+                  We look at recent recovery patterns, strain signals, sleep, and your natural chronotype to suggest how to pace what’s next.<br><br>This is meant as a short-term planning tool to help you make smarter decisions about your effort and recovery. With more data your planning recommendations will populate here and become more accurate over time.<br><br>Your data is always private and never shared with your employer.
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  {% include 'includes/_onboarding_modal.html' %}
+{% endblock content %}
+
+{% block custom_js %}
+  <script src="{% static 'assets/js/modules/onboarding-wizard.js' %}"></script>
+  <script src="{% static 'assets/js/helpers/onboarding.js' %}"></script>
+  <script language="javascript">
+    const mctqApex = {{apex | safe}};
+    const mctqHorizon = {{horizon | safe}};
+    const mctqAurora = {{aurora | safe}};
+  </script>
+{% endblock custom_js %}

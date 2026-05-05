@@ -1,0 +1,49 @@
+{% extends 'layouts/_base_external.html' %}
+{% load static %}
+
+{% block title %}Energy Pulse{% endblock title %}
+
+{% block content %}
+  <form id="nudgeForm" method="post" action="/nudge" class="needs-validation" novalidate>
+    <div class="auth-main">
+      <div class="auth-wrapper v3">
+        <div class="auth-form">
+          <div class="auth-header">
+            <a href="/"><img src="{% static 'assets/images/logo-dark.png' %}" alt="img" height="50"></a>
+          </div>
+          <div class="card my-5">
+            <div class="card-header">
+              <h3 class="mb-0">Energy Pulse</h3>
+            </div>
+            <div class="card-body">
+              {% if not response_recorded %}
+                <div class="row">
+                  {% include 'includes/_nudge_form_fields.html' %}
+                  <div class="row">
+                    <div class="col-md-12 text-end">
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                  </div>
+                </div>
+              {% else %}
+                <div class="row text-center">
+                  <div class="col-md-12 mb-4">
+                    <h5>Thank you. Your response has been recorded.</h5>
+                  </div>
+                </div>
+                <div class="row text-center">
+                  <div class="col-md-12">
+                    <a href="/dashboard" class="btn btn-primary">Home</a>
+                  </div>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="auth-footer row">
+            {% include 'includes/_footer.html' %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+{% endblock content %}

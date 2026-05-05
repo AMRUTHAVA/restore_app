@@ -1,0 +1,96 @@
+{% extends 'layouts/_base_internal.html' %}
+{% load static %}
+
+{% block title %}Settings{% endblock title %}
+
+{% block content %}
+<div class="pc-container">
+    <div class="pc-content">
+      <div class="row">
+        <div class="col-md-12 col-xl-12">
+          <div class="col-md-12">
+            <ul class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+              <li class="breadcrumb-item" aria-current="page">Settings</li>
+            </ul>
+          </div>
+          <ul class="nav nav-tabs mb-3 mt-1" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link settings active" id="pulse-tab" data-bs-toggle="tab" href="#pulse" role="tab" aria-controls="pulse" aria-selected="true">
+                Energy Pulse
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link settings" id="blueprint-tab" data-bs-toggle="tab" href="#blueprint" role="tab" aria-controls="blueprint" aria-selected="false">
+                Energy Blueprint
+              </a>
+            </li>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="pulse" role="tabpanel" aria-labelledby="pulse-tab">
+              <div class="card">
+                <div class="card-header thin">
+                  <div>
+                    <h5 class="mb-2 float-start">Energy Pulse Settings</h5>
+                    <div class="float-end">
+                      <a href="#" data-bs-toggle="popover" data-bs-placement="top" title="About the Energy Pulse Questions" data-bs-content="Self-reported data through the single question pulse checks provide one of the best indicators of your energy. Select your notification preferences to balance these short check-ins with the accuracy of your recommendations. To make your recommendations accurate and actionable, if you do not have a wearable connected, 5 pulse questions per week is recommended.">
+                        <i data-feather="info"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <form id="nudgesForm" method="post" action="/settings" class="needs-validation" novalidate>
+                    {% include 'includes/onboarding/_nudge_settings_form_fields.html' %}
+                    <div class="col-md-12 text-end">
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="blueprint" role="tabpanel" aria-labelledby="blueprint-tab">
+              <div class="card">
+                <div class="card-header thin">
+                  <div>
+                    <h5 class="mb-2 float-start">Energy Blueprint Settings</h5>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <form id="blueprintForm" method="post" action="/blueprint_settings" class="needs-validation" novalidate>
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="mb-3">
+                          <label class="form-label medium mb-1">What time do you want your daily energy schedule to start?</label>
+                          <div class="text-muted mb-3">We will show 16 total hours of your day starting at this time</div>
+                          <div>
+                            <select name="energy_schedule_start" class="form-select" required>
+                              <option value="6" {% if user.energy_schedule_start == 6%}selected{% endif %}>6 AM</option>
+                              <option value="7" {% if user.energy_schedule_start == 7%}selected{% endif %}>7 AM</option>
+                              <option value="8" {% if user.energy_schedule_start == 8%}selected{% endif %}>8 AM</option>
+                              <option value="9" {% if user.energy_schedule_start == 9%}selected{% endif %}>9 AM</option>
+                              <option value="10" {% if user.energy_schedule_start == 10%}selected{% endif %}>10 AM</option>
+                              <option value="11" {% if user.energy_schedule_start == 11%}selected{% endif %}>11 AM</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12 text-end">
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+
+{% block custom_js %}
+  <script src="{% static 'assets/js/helpers/settings.js' %}"></script>
+{% endblock custom_js %}

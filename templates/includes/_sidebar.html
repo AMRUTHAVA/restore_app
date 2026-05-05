@@ -1,0 +1,82 @@
+{% load static %}
+<nav class="pc-sidebar">
+  <div class="navbar-wrapper">
+    <div class="m-header">
+      <a href="/dashboard" class="b-brand">
+        <img src="{% static 'assets/images/logo-dark.png' %}" class="img-fluid" alt="logo">
+      </a>
+    </div>
+    <div class="navbar-content">
+      <ul class="pc-navbar">
+        <li class="pc-item">
+          <a href="/dashboard" class="pc-link">
+            <span class="pc-micon">
+              <svg class="pc-icon">
+                <use xlink:href="#dashboard"></use>
+              </svg>
+            </span>
+            <span class="pc-mtext">Dashboard</span>
+          </a>
+        </li>
+        <li class="pc-item">
+          <a href="/products" class="pc-link">
+            <span class="pc-micon">
+              <svg class="pc-icon">
+                <use xlink:href="#package"></use>
+              </svg>
+            </span>
+            <span class="pc-mtext">Products</span>
+          </a>
+        </li>
+        <li class="pc-item">
+          <a href="/customers" class="pc-link">
+            <span class="pc-micon">
+              <svg class="pc-icon">
+                <use xlink:href="#users"></use>
+              </svg>
+            </span>
+            <span class="pc-mtext">Customers</span>
+          </a>
+        </li>
+        <li class="pc-item">
+          <a href="/placeorder" class="pc-link">
+            <span class="pc-mtext">Orders</span>
+          </a>
+        <li class="pc-item">
+          <a href="/placeorder" class="pc-link">
+            <span class="pc-mtext">PlaceOrder</span>
+          </a>
+        <li class="pc-item">
+          <a href="/departments" class="pc-link">
+            <span class="pc-micon">
+              <svg class="pc-icon">
+                <use xlink:href="#thunderbolt"></use>
+              </svg>
+            </span>
+            <span class="pc-mtext">Departments</span>
+          </a>
+        </li>
+        <li class ="pc-item pc-hasmenu">
+          <a href="#!" class="pc-link">
+            <span class="pc-mtext" data-i18n="Energy Intelligence">Energy Intelligence</span>
+            <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
+          </a>
+          <ul class="pc-submenu">
+            <li class="pc-item"><a class="pc-link" href="/energy_plan" data-i18n="Energy Plan">Energy Plan</a></li>
+            <li class="pc-item"><a class="pc-link" href="/energy_blueprint" data-i18n="Energy Blueprint">Energy Blueprint</a></li>
+          </ul>
+        </li>
+        <li class="pc-item">
+          <a href="/settings" class="pc-link">
+            <span class="pc-micon">
+              <svg class="pc-icon">
+                <use xlink:href="#edit"></use>
+              </svg>
+            </span>
+            <span class="pc-mtext">Settings</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,17 @@
+{% load custom_filters %}
+
+<input type="hidden" name="csrfmiddlewaretoken" value="{{csrf_token}}">
+<div class="row">
+  <div class="col-sm-12">
+    <div class="col-sm-12">
+      <label class="form-label medium nudge-text">{{user_nudge_text}}</label>
+      {% for nudge_option in user_nudge_options.values %}
+        <div class="form-check mt-3">
+          <input class="form-check-input" type="radio" name="nudge_option" id="nudge_option{{forloop.counter}}" value="{{nudge_option}}" required>
+          <label class="form-check-label" for="nudge_option{{forloop.counter}}">{{nudge_option|replace:"_, "|capfirst }}</label>
+        </div>
+      {% endfor %}
+      <input type="hidden" name="user_nudge_id" value="{{user_nudge_id}}">
+    </div>
+  </div>
+</div>

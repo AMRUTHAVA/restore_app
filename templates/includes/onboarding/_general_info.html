@@ -1,0 +1,56 @@
+<div class="tab-pane" id="generalInfo" role="tabpanel">
+  <form id="generalInfoForm" data-key="general_info" method="post" action="#" class="needs-validation" novalidate>
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+    <div>
+      <h4 class="mb-2">Tell Us More About You</h4>
+      <div class="sub-heading">
+        This helps us personalize your experience from day one.
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-sm-6">
+        <div class="mb-3">
+          <label class="form-label medium">Date of Birth</label>
+          <input type="text" id="date_of_birth" name="date_of_birth" class="form-control pick-date" placeholder="Enter your birthday" value="{{general_info.date_of_birth}}" required>
+          <span class="text-muted">Helps us understand age-related patterns in energy.</span>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="mb-3">
+          <label class="form-label medium">Gender</label>
+          <select name="gender" class="form-select" data-value="{{general_info.gender}}" required>
+            <option value="" disabled selected></option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="non-binary">Non-binary</option>
+            <option value="no-choice">Prefer not to say</option>
+          </select>
+          <span class="text-muted">Used only to improve aggregate insights.</span>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="mb-3">
+          <label class="form-label">Timezone</label>
+          <select name="timezone_id" class="form-select" required>
+            <option value="" disabled selected></option>
+            {% for timezone in timezones %}
+              <option value="{{timezone.id}}" {% if timezone.id == user.timezone.id %}selected{% endif %}>{{timezone.timezone}} ({{timezone.offset}})</option>
+            {% endfor %}
+          </select>
+          <span class="text-muted">Ensures insights and reminders align with your day.</span>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="mb-3">
+          <label class="form-label">Role</label>
+          <select name="role" class="form-select" data-value="{{general_info.role}}" required>
+            <option value="" disabled selected></option>
+            <option value="employee">Employee</option>
+            <option value="administrator">Administrator</option>
+          </select>
+          <span class="text-muted">Within your organization, you are a…</span>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,99 @@
+{% extends 'layouts/_base_internal.html' %}
+{% load static %}
+
+{% block title %}Customer List{% endblock title %}
+
+{% block content %}
+  <div class="pc-container">
+    <div class="pc-content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Customer List</h5>
+                <form method="GET" action="/customers/customer_list/customer_search/" class="d-flex">
+                {% csrf_token %}
+                <input value="{{ search_query }}" type="text" name="q" class="form-control me-2" placeholder="Search by name or email">
+                <button type="submit" class="btn btn-outline-secondary">Search</button>
+                </form>
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCustomerModal">
+                <i class="fas fa-plus me-2"></i>Add Customer
+              </button>
+            </div>
+            <div class="card-body">
+              {% if customers %}
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Department</th>
+                        <th>Mobile Number</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for c in customers %}
+                        <tr>
+                          <td>{{ c.name }}</td>
+                          <td>{{ c.email }}</td>
+                          <td>{{ c.department.name }}</td>
+                          <td>{{ c.mobile_number }}</td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              {% else %}
+                <div class="text-center py-5">
+                  <p class="text-muted mb-3">No customers found</p>
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCustomerModal">
+                    <i class="fas fa-plus me-2"></i>Add Your First Customer
+                  </button>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="addCustomerModal" tabindex="-1" aria-labelledby="addCustomerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addCustomerModalLabel">Add New Customer</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form method="post" action="{% url 'add_customer' %}">
+          {% csrf_token %}
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="customerName" class="form-label">Customer Name</label>
+              <input type="text" class="form-control" id="customerName" name="name" required>
+            </div>
+            <div class="mb-3">
+              <label for="customerEmail" class="form-label">Email</label>
+              <input type="email" class="form-control" id="customerEmail" name="email" required>
+            </div>
+            <div class="mb-3">
+              <label for="customerDepartment" class="form-label">Department</label>
+              <input type="text" class="form-control" id="customerDepartment" name="department" placeholder="e.g. Sales" required>
+            </div>
+            <div class="mb-3">
+              <label for="customerMobileNumber" class="form-label">Mobile Number</label>
+              <input type="text" class="form-control" id="customerMobileNumber" name="mobile_number">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Add Customer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+
+

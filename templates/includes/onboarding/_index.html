@@ -1,0 +1,47 @@
+<div id="onboarding_wizard_main" class="form-wizard row justify-content-center">
+  <div class="col-md-12 col-xl-12">
+    <!-- Nav is required as part of the wizard component, but we are not using it. So, adding to the markup but hiding it -->
+    <div class="card d-none">
+      <div class="card-body p-3">
+        {% include 'includes/onboarding/_nav.html' %}
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <div class="tab-content">
+          <div class="progress mb-4" style="height: 20px">
+            <div class="bar progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 25%">
+              0%
+            </div>
+          </div>
+          <div class="tab-container">
+            {% include 'includes/onboarding/_welcome.html' %}
+            
+            {% include 'includes/onboarding/_privacy.html' %}
+
+            {% include 'includes/onboarding/_honesty.html' %}
+            
+            {% include 'includes/onboarding/_general_info.html' %}
+
+            {% include 'includes/onboarding/_workday_sleep.html' %}
+
+            {% include 'includes/onboarding/_nonworkday_sleep.html' %}
+
+            {% include 'includes/onboarding/_mctq.html' %}
+
+            {% include 'includes/onboarding/_work_and_energy.html' %}
+
+            {% include 'includes/onboarding/_rhythms_and_habits.html' %}
+
+            {% include 'includes/onboarding/_caffeine_and_food.html' %}
+
+            {% include 'includes/onboarding/_nudge_settings.html' %}
+
+            {% include 'includes/onboarding/_complete.html' %}
+          </div>    
+          {% include 'includes/onboarding/_actions.html' %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,72 @@
+<div class="tab-pane" id="rhythmsAndHabits" role="tabpanel">
+  <form id="rhythmsAndHabitsForm" data-key="rhythms_and_habits" method="post" action="#" class="needs-validation" novalidate>
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+    <div>
+      <h4 class="mb-2">Daily Rhythms and Habits</h4>
+      <div class="sub-heading">
+        These questions help us understand how your daily activities and habits affect your energy.
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-sm-6">
+        <div class="mb-3">
+          <label class="form-label medium">First Exposure to Natural Light</label>
+          <input id="natural_light_time" data-value="{{rhythms_and_habits.natural_light_time}}" name="natural_light_time" class="form-control pick-time-morn" type="time" placeholder="Time you first get natural light in the morning" required {% if rhythms_and_habits.no_natural_light_time == '1' %}disabled{% endif %}>
+          <span class="text-muted">What time do you get your first exposure to natural light?</span>
+          <div class="mt-2 mb2 form-check">
+            <input type="hidden" name="no_natural_light_time" value="0">
+            <input type="checkbox" class="form-check-input" name="no_natural_light_time" value="1" id="no_natural_light_time" onchange="enableDisableCheckboxDependents(this, 'natural_light_time')" {% if rhythms_and_habits.no_natural_light_time == '1' %}checked{% endif %}>
+            <label for="no_natural_light_time" class="form-label medium">I don’t get natural light in the morning</label>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="mb-3">
+          <label class="form-label medium">Morning Light Exposure Within 2 Hours of Waking</label>
+          <select name="morning_light_exposure_interval" data-value="{{rhythms_and_habits.morning_light_exposure_interval}}" class="form-select" required>
+            <option value="" disabled selected></option>
+            <option value="0-10">0-10 min</option>
+            <option value="10-15">10-15 min</option>
+            <option value=">15">More than 15 min</option>
+          </select>
+          <span class="text-muted">How much natural light do you get in the morning?</span>
+        </div>
+      </div>
+      <hr>
+      <div>
+        <h4 class="mb-2">Exercise</h4>
+      </div>
+      <div class="col-sm-6">
+        <div class="mb-3">
+          <label class="form-label medium">Exercise Frequency</label>
+          <select id="exercise_frequency" data-value="{{rhythms_and_habits.exercise_frequency}}" name="exercise_frequency" class="form-select" required {% if rhythms_and_habits.no_exercise_frequency == '1' %}disabled{% endif %}>
+            <option value="" disabled selected></option>
+            <option value="1">1 x per week</option>
+            <option value="2">2 x per week</option>
+            <option value="3">3 x per week</option>
+            <option value="4">4 x per week</option>
+            <option value="5">5 x per week</option>
+            <option value="6">6 x per week</option>
+            <option value="7">7 or more x per week</option>
+          </select>
+          <span class="text-muted">How often do you work out?</span>
+          <div class="mt-2 mb2 form-check">
+            <input type="hidden" name="no_exercise_frequency" value="0">
+            <input type="checkbox" class="form-check-input" value="1" name="no_exercise_frequency" id="no_exercise_frequency" onchange="enableDisableCheckboxDependents(this, 'exercise_frequency')" {% if rhythms_and_habits.no_exercise_frequency == '1' %}checked{% endif %}>
+            <label for="no_exercise_frequency" class="form-label medium">I don’t usually exercise</label>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="mb-3">
+          <label class="form-label medium">Exercise Intensity</label>
+          <div class="slider-container">
+            <div class="slider-label-left">Low</div>
+            <input id="exercise_intensity" value="{{rhythms_and_habits.exercise_intensity|default:'5'}}" name="exercise_intensity" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-tooltip="hide" data-slider-value="{{rhythms_and_habits.exercise_intensity|default:'5'}}" />
+            <div class="slider-label-right">High</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

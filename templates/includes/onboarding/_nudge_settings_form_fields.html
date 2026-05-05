@@ -1,0 +1,51 @@
+<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+<div class="row">
+  <div class="col-sm-7">
+    <div class="mb-4">
+      <label class="form-label medium">Where do you want to receive the Energy Pulses?</label>
+      <div class="form-check form-switch switch-lg ms-2 pb-1">
+        <input type="checkbox" class="form-check-input input-primary f-16" id="nudges_1" name="channels" value="email" required checked {% if 'email' in nudges.channels %}checked{% endif %}>
+        <label class="form-check-label" for="nudges_1">Email</label>
+      </div>
+      <div class="form-check form-switch switch-lg ms-2 pb-1">
+        <input type="checkbox" value="desktop" class="form-check-input input-primary f-16" id="nudges_2" name="channels" {% if 'desktop' in nudges.channels %}checked{% endif %}>
+        <label class="form-check-label" for="nudges_2">Desktop</label>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-6">
+    <div class="mb-3 frequency-slider">
+      <label class="form-label medium">How often do you want to receive the Energy Pulses?</label>
+      <div class="slider-container">
+        <div class="slider-label-left text-center">Quiet<br /><span class="text-muted">3 / week</span></div>
+        <input id="frequency" value="{{nudges.frequency|default:'5'}}" name="frequency" data-slider-id='ex1Slider' type="text" data-slider-min="3" data-slider-max="7" data-slider-step="2" data-slider-tooltip="hide" data-slider-value="{{nudges.frequency|default:'5'}}" />
+        <div class="slider-label-right text-center">Insight Rich<br /><span class="text-muted">Daily</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-7">
+    <div class="mb-4">
+      <div style="display: flex">
+        <div style="padding-right: 7px">
+          <i data-feather="info"></i>
+        </div>
+        <div>
+          When we’re missing key signals, we may ask additional questions to keep your energy plan accurate.
+        </div>
+      </div>
+    </div>
+    <div class="mb-4">
+      <label class="form-label medium">When do you want to receive the Energy Pulses?</label>
+      <select name="time_of_day" data-value="{{nudges.time_of_day}}" class="form-select" required>
+        <option value=""></option>
+        <option value="morning">Morning</option>
+        <option value="midday">Midday</option>
+        <option value="evening">Evening</option>
+      </select>
+    </div>
+  </div>
+</div>

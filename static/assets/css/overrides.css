@@ -1,0 +1,224 @@
+body {
+  background-color: #fafab !important;
+}
+.m-header img {
+  width: 170px !important;
+  margin: 2px 0px 0px 12px !important;
+}
+
+.navbar-content {
+  padding: 21px 0 !important;
+}
+
+[data-pc-direction=ltr] .override-name {
+  margin-top: 10px !important;
+}
+
+.pc-mtext {
+  top: 1px !important;
+  position: relative !important;
+}
+
+.pc-header .pc-icon {
+  margin-top: -4px !important;
+}
+
+.pc-h-item h4 {
+  margin-top: 2px !important;
+}
+
+.header-wrapper {
+  padding: 0px 8px 0px 2px !important;
+}
+
+.pc-sidebar-collapse a {
+  margin: 0px !important;
+}
+
+@media (max-width: 575.98px) {
+  .pc-header .pc-head-link {
+    padding: 0rem !important;
+    margin: 0px !important;
+  }
+}
+
+.auth-footer .row {
+  padding-right: 0px !important;
+  padding-left: 5px !important;
+}
+
+.auth-footer .row div {
+  padding-right: 0px !important;
+}
+
+.tab-content .tab-pane {
+  display: none;
+}
+.tab-content .active {
+  display: block;
+}
+
+.tab-container {
+  min-height: 330px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.sub-heading {
+  font-size: 15px;
+  clear: both;
+}
+
+.modal-logout {
+  margin: calc(-0.5 * var(--bs-modal-header-padding-y)) calc(-0.5 * var(--bs-modal-header-padding-x)) calc(-0.5 * var(--bs-modal-header-padding-y)) auto;
+  font-size: 20px;
+  padding: 0px 15px 10px 14px !important;
+}
+
+.onboarding-logout {
+  z-index: 9999;
+}
+
+#onboarding_wizard_main .form-label {
+  display: block !important;
+}
+
+#onboarding_wizard_main .flatpickr-wrapper {
+  width: 100%;
+}
+
+.form-label.medium {
+  font-size: 12pt;
+}
+
+.form-control:hover {
+  background-color: #e9ecef !important;
+}
+
+.pick-date {
+  opacity: 1 !important;
+}
+
+.previous.me-2 {
+  margin-right: 12px !important;
+}
+
+#nctq hr {
+  padding-bottom: 14px !important;
+}
+#mctq .alert-info {
+  margin-bottom: 10px !important;
+}
+.mctq-icons {
+  font-size: 25px;
+  margin-right: 10px;
+}
+
+.welcome-banner {
+  border-radius: 10px;
+}
+
+.img-welcome-banner {
+  text-align: right;
+  margin-right: 90px;
+}
+
+.img-welcome-banner img {
+  height: 180px;
+}
+
+.slider-container {
+  margin-top: 4px;
+  display: flex;
+}
+.slider-label-left {
+  margin-right: 14px;
+  position: relative;
+  bottom: 3px;
+  white-space: nowrap;
+}
+.slider-label-right {
+  margin-left: 14px;
+  position: relative;
+  bottom: 2px;
+  white-space: nowrap;
+}
+.slider-horizontal {
+  width: 100% !important;
+}
+.frequency-slider .slider-horizontal {
+  margin-top: 8px;
+}
+
+#ex1Slider .slider-selection {
+  background: #BABABA;
+}
+
+.onboarding-spinner {
+  position: absolute !important;
+  left: 48% !important;
+  top: 44% !important;
+  opacity: 0.3;
+  display: none !important;
+}
+.spinner-message {
+  margin-left: -44%;
+}
+
+#mctq_detail {
+  display: none !important;
+}
+
+.popover {
+  z-index: 999;
+}
+
+.toast {
+  white-space: nowrap !important;
+  width: 100% !important;
+}
+
+.dashboard h5 {
+  font-size: 1rem !important;
+}
+
+.card-header.thin {
+  padding: 15px 15px 5px 15px !important;
+}
+
+.card-header h5 {
+  font-size: 1rem !important;
+}
+
+.settings.active {
+  font-weight: bold !important;
+  background-color: #FFFFFF !important;
+}
+
+.energy-schedule-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start
+}
+
+.energy-schedule-row {
+  display: flex;
+  align-items: center;
+  margin: 3px 0;
+}
+
+.energy-schedule-time {
+  width: 40px;
+  text-align: right;
+  margin-right: 10px;
+  font-size: 0.8rem;
+}
+
+.energy-schedule-block {
+  width: 50px;
+  height: 30px;
+}
+
+.energy-schedule {
+  min-width: 232px;
+}

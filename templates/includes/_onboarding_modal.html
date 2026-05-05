@@ -1,0 +1,17 @@
+<div class="modal fade onboarding-modal" tabindex="-1" aria-labelledby="onboardingModal" aria-hidden="true" style="display: none;" data-survey-completed-at="{{survey_completed_at}}" data-survey-completed-tab-index="{{max_section_id}}" data-chronotype="{{chronotype}}">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="onboardingModal">Baseline Survey and Account Set-up</h3>
+        {% if user.baseline_survey_detail.completed_at %}
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        {% else %}
+          <a href="/logout" class="ti ti-power float-right modal-logout" data-bs-toggle="tooltip" data-bs-custom-class="onboarding-logout" data-bs-placement="top" title="Logout"></a>
+        {% endif %}
+      </div>
+      <div class="modal-body">
+        {% include 'includes/onboarding/_index.html' %}
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,68 @@
+{% extends 'layouts/_base_internal.html' %}
+{% load static %}
+
+{% block title %}Orders{% endblock title %}
+
+{% block content %}
+<div class="pc-container">
+  <div class="pc-content">
+
+    <h2 >Orders</h2>
+
+    {% if orders %}
+      <div class="row">
+
+        {% for order in orders %}
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="card h-100 shadow-sm">
+
+            <div class="card-header bg-primary text-white">
+              <h5 class="mb-0">Order #{{ order.id }}</h5>
+            </div>
+
+            <div class="card-body">
+
+              <!-- Customer -->
+              <p><strong>Customer:</strong> {{ order.customer.name }}</p>
+
+              <!-- Products -->
+              <p><strong>Products:</strong></p>
+              <ul>
+                {% for item in order.items.all %}
+                  <li>
+                    {{ item.product.name }} - ₹{{ item.product.price }}
+                  </li>
+                {% endfor %}
+              </ul>
+
+              <!-- Status -->
+              <p>
+                <strong>Status:</strong>
+                <span class="badge bg-success">
+                  {{ order.status }}
+                </span>
+              </p>
+
+              <!-- Date -->
+              <p>
+                <strong>Date:</strong>
+                {{ order.created_at }}
+              </p>
+
+            </div>
+
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+    {% else %}
+      <div class="text-center py-5">
+        <h5 class="text-muted">No orders found</h5>
+        <p class="text-muted">Place an order to see it here.</p>
+      </div>
+    {% endif %}
+
+  </div>
+</div>
+{% endblock content %}

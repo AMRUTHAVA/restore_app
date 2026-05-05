@@ -1,0 +1,18 @@
+<div class="tab-pane" id="nudges" role="tabpanel">
+  <form id="nudgesForm" data-key="nudges" method="post" action="#" class="needs-validation" novalidate>
+    <div class="mb-4">
+      <div>
+        <h4 class="mb-2 float-start">Energy Pulse Settings</h4>
+        <div class="float-end">
+          <a href="#" data-bs-toggle="popover" data-bs-placement="top" title="About the Energy Pulse Questions" data-bs-content="Self-reported data through the single question pulse checks provide one of the best indicators of your energy. Select your notification preferences to balance these short check-ins with the accuracy of your recommendations. To make your recommendations accurate and actionable, if you do not have a wearable connected, 5 pulse questions per week is recommended.">
+            <i data-feather="info"></i>
+          </a>
+        </div>
+      </div>
+      <div class="sub-heading">
+        You can adjust this anytime in settings.
+      </div>
+    </div>
+    {% include 'includes/onboarding/_nudge_settings_form_fields.html' %}
+  </form>
+</div>

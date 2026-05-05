@@ -1,0 +1,19 @@
+<div class="modal fade nudge-modal" tabindex="-1" aria-labelledby="nudgeModal" aria-hidden="true" style="display: none;" data-user-nudge-desktop="{{user_nudge_desktop}}" data-user-nudge-text="{{user_nudge_text}}">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <form id="nudgeForm" method="post" action="/nudge" class="needs-validation" novalidate>
+        <div class="modal-header">
+          <h3 class="modal-title">Energy Pulse</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-4">
+          {% include 'includes/_nudge_form_fields.html' %}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

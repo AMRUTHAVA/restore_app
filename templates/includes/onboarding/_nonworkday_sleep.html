@@ -1,0 +1,86 @@
+<div class="tab-pane" id="nonworkdaySleep" role="tabpanel">
+  <form id="nonworkdaySleepForm" data-key="nonworkday_sleep" method="post" action="#" class="needs-validation" novalidate>
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+    <div>
+      <h4 class="mb-2">Your Non-Workday Sleep</h4>
+      <div class="sub-heading">
+        These days often reflect your natural rhythm.
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-sm-6">
+        <div class="mb-3">
+          <label class="form-label medium">Time to Fall Asleep on Days Off</label>
+          <select name="nonworkday_time_to_sleep" data-value="{{nonworkday_sleep.nonworkday_time_to_sleep}}" class="form-select"  required>
+            <option value=""></option>
+            <option value="<5">Less than 5min</option>
+            <option value="5">5 min</option>
+            <option value="10">10 min</option>
+            <option value="15">15 min</option>
+            <option value="20">20 min</option>
+            <option value="25">25 min</option>
+            <option value="30">30 min</option>
+            <option value="35">35 min</option>
+            <option value="40">40 min</option>
+            <option value="45">45 min</option>
+            <option value="50">50 min</option>
+            <option value="55">55 min</option>
+            <option value="60">60 min</option>
+            <option value=">60">More than 60 min</option>
+          </select>
+          <span class="text-muted">How long does it usually take you to fall asleep?</span>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="mb-3">
+          <label class="form-label medium">Sleep Start Time on Days Off</label>
+          <input id="nonworkday_sleep_time" data-value="{{nonworkday_sleep.nonworkday_sleep_time}}" name="nonworkday_sleep_time" class="form-control pick-time-eve" type="time" placeholder="What time do you usually fall asleep on days off?" required>
+          <span class="text-muted">When you actually fall asleep, not when you get into bed.</span>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="mb-3">
+          <label class="form-label">Alarm Use</label>
+          <select name="nonworkday_alarm_use" data-value="{{nonworkday_sleep.nonworkday_alarm_use}}" class="form-select" required>
+            <option value=""></option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+            <option value="sometimes">Sometimes</option>
+          </select>
+          <span class="text-muted">Do you use an alarm to wake up on days off?</span>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="mb-3">
+          <label class="form-label medium">Wake Up Time</label>
+          <input id="nonworkday_wakeup_time" data-value="{{nonworkday_sleep.nonworkday_wakeup_time}}" name="nonworkday_wakeup_time" class="form-control pick-time-morn" type="time" placeholder="What time do you wake up on days off?" required>
+          <span class="text-muted">Your first wake-up, even if you stay in bed after.</span>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="mb-3">
+          <label class="form-label medium">Sleep-in Time</label>
+          <select name="nonworkday_sleepin_time" data-value="{{nonworkday_sleep.nonworkday_sleepin_time}}" class="form-select" required>
+            <option value=""></option>
+            <option value="<5">Less than 5min</option>
+            <option value="5">5 min</option>
+            <option value="10">10 min</option>
+            <option value="15">15 min</option>
+            <option value="20">20 min</option>
+            <option value="25">25 min</option>
+            <option value="30">30 min</option>
+            <option value="35">35 min</option>
+            <option value="40">40 min</option>
+            <option value="45">45 min</option>
+            <option value="50">50 min</option>
+            <option value="55">55 min</option>
+            <option value="60">60 min</option>
+            <option value=">60">More than 60 min</option>
+            <option value="no-sleep-in">I don’t sleep in on days off</option>
+          </select>
+          <span class="text-muted">How long do you sleep in on non-work mornings?</span>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

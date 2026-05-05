@@ -1,0 +1,91 @@
+{% extends 'layouts/_base_internal.html' %}
+{% load static %}
+
+{% block title %}Buy Products{% endblock %}
+
+{% block content %}
+<div class="pc-container">
+    <div class="pc-content">
+        <h2>Select Products</h2>
+
+        <!-- ✅ FORM START -->
+        <form method="POST" action="{% url 'placeorder' %}">
+            {% csrf_token %}
+
+            <div class="row">
+
+                {% for product in products %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <!-- ✅ Checkbox -->
+                            <div class="form-check mb-2">
+                                <input type="checkbox"
+                                       onchange="handleChange()"
+                                       class="product-checkbox"
+                                       name="products"
+                                       value="{{ product.id }}">
+                            </div>
+
+                            <!-- Product Details -->
+                            <h6 class="card-title">{{ product.name }}</h6>
+
+                            {% if product.description %}
+                            <p class="text-muted">
+                                {{ product.description|truncatechars:80 }}
+                            </p>
+                            {% endif %}
+
+                            <p class="fw-bold text-primary">
+                                ₹ {{ product.price }}
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+            <div class="text-center mt-3">
+                <button type="submit" id="buyBtn" disabled>
+                    Buy Selected Products
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block custom_js %}
+
+<script>
+    handleChange = () =>{
+        if (document.querySelectorAll('.product-checkbox:checked').length > 0) {
+            document.getElementById('buyBtn').removeAttribute('disabled');
+        } else {
+            document.getElementById('buyBtn').setAttribute('disabled', 'disabled');
+        }
+    }
+</script>
+<!-- 
+<script>
+    const checkboxes = document.querySelectorAll('.product-checkbox');
+    const buyBtn = document.getElementById('buyBtn');
+
+    checkboxes.forEach(cb => {
+        cb.addEventListener('change', () => {
+            let anyChecked = false;
+
+            checkboxes.forEach(c => {
+                if (c.checked) {
+                    anyChecked = true;
+                }
+            });
+
+            buyBtn.disabled = !anyChecked;
+        });
+    });
+</script> -->
+{% endblock custom_js %}

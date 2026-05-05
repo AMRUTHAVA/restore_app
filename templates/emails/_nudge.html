@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Energy Pulse</title>
+  <style>
+    .button:hover { width: 8px !important; height: 8px !important; border: 8px solid #2f6de1 !important; }
+  </style>
+</head>
+<body style="margin: 0; padding: 0; background-color: #f4f4f4; font-family: Arial, Helvetica, sans-serif;">
+  <!-- Outer wrapper -->
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f4f4f4;">
+    <tr>
+      <td align="center" style="padding: 40px 16px;">
+        <!-- Card -->
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="480" style="max-width: 780px; width: 100%; background-color: #ffffff; border-radius: 8px; overflow: hidden; border: 1px solid #E5E5E5">
+          <!-- Body -->
+          <tr>
+            <td align="center" style="padding: 28px 40px 32px 40px;">
+              <img src="{HOST_URL}/static/assets/images/logo-dark.png" width="185">
+              <!-- Question -->
+              <p style="margin: 30px 0 24px 0; font-size: 19px; font-weight: 600; color: #1a1a1a; line-height: 1.4; text-align: center;">{NUDGE_TEXT}</p>
+              <!-- Options -->
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-left: 20px; margin-bottom: 32px;">
+                {NUDGE_OPTIONS}
+              </table>
+              <!-- Footer -->
+              <p style="margin: 0; font-size: 13px; color: #777777; line-height: 1.6; text-align: center;">
+                <span style="font-size: 16px;"><b>Select an answer, and it will be recorded.</b></span>
+                <br /><br />
+                Having trouble answering?<br/>
+                <a href="{NUDGE_URL}" style="color: #1a1a1a; text-decoration: underline;">Click here to answer in the app.</a>
+                <br /><br />
+                8 The Green STE R, Dover, DE 19901<br />
+                Contact us at <a href="mailto: product@restorecalendar.com">product@restorecalendar.com</a> to unsubscribe.
+              </p>
+            </td>
+          </tr>
+        </table>
+        <!-- /Card -->
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

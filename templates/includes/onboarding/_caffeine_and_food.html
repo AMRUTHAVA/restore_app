@@ -1,0 +1,140 @@
+<div class="tab-pane" id="caffeineAndFood" role="tabpanel">
+  <form id="caffeineAndFoodForm" data-key="caffeine_and_food" method="post" action="#" class="needs-validation" novalidate>
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+    <div>
+      <h4 class="mb-2">Your Caffeine Intake</h4>
+      <div class="sub-heading">
+        Caffeine quantity and timing affects sleep depth, stress hormones, and next-day focus.
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-sm-6">
+        <div class="mb-0">
+          <label class="form-label medium">Caffeine Intake</label>
+          <select name="caffeine_intake" class="form-select" data-value="{{caffeine_and_food.caffeine_intake}}" onchange="enableDisableAdditionalQuestions(this)" required>
+            <option value="" disabled selected></option>
+            <option value="yes">Yes</option>
+            <option value="sometimes">Sometimes</option>
+            <option value="no">No</option>
+          </select>
+          <span class="text-muted">Do you usually drink caffeine?</span>
+        </div>
+      </div>
+    </div>
+    <div class="row" id="additional_caffeine_questions" {% if caffeine_and_food.caffeine_intake == None or caffeine_and_food.caffeine_intake == '' or caffeine_and_food.caffeine_intake == 'no' %}style="display: none"{% endif %}>
+      <div>
+        <div class="sub-heading mt-2 mb-3">
+          These questions help us understand how your daily activities and habits affect your energy.
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="mb-3 mt-3">
+          <label class="form-label medium">Caffeine Frequency</label>
+          <div class="slider-container">
+            <div class="slider-label-left">One cup</div>
+            <input id="caffeine_frequency" name="caffeine_frequency" value="{{caffeine_and_food.caffeine_frequency|default:'5'}}" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-tooltip="hide" data-slider-value="{{caffeine_and_food.caffeine_frequency|default:'5'}}" />
+            <div class="slider-label-right">5+ cups</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="mb-3">
+          <label class="form-label medium">Caffeine Source</label>
+          <div class="row">
+            <div class="col">
+              <div class="form-check">
+                <input class="form-check-input caffeine_intake_type" type="checkbox" value="coffee" name="caffeine_intake_type" id="caffeine_intake_coffee" {% if 'coffee' in caffeine_and_food.caffeine_intake_type %}checked{% endif %}>
+                <label class="form-check-label" for="caffeine_intake_coffee">Coffee</label>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-check">
+                <input class="form-check-input caffeine_intake_type" type="checkbox" value="tea" name="caffeine_intake_type" id="caffeine_intake_tea" {% if 'tea' in caffeine_and_food.caffeine_intake_type %}checked{% endif %}>
+                <label class="form-check-label" for="caffeine_intake_tea">Tea</label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-check">
+                <input class="form-check-input caffeine_intake_type" type="checkbox" value="energy_drinks" name="caffeine_intake_type" id="caffeine_intake_edrinks" {% if 'energy_drinks' in caffeine_and_food.caffeine_intake_type %}checked{% endif %}>
+                <label class="form-check-label" for="caffeine_intake_edrinks">Energy Drinks</label>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-check">
+                <input class="form-check-input caffeine_intake_type" type="checkbox" value="soda" name="caffeine_intake_type" id="caffeine_intake_soda" {% if 'soda' in caffeine_and_food.caffeine_intake_type %}checked{% endif %}>
+                <label class="form-check-label" for="caffeine_intake_soda">Soda</label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-check">
+                <input class="form-check-input caffeine_intake_type" type="checkbox" value="medications" name="caffeine_intake_type" id="caffeine_intake_meds" {% if 'medications' in caffeine_and_food.caffeine_intake_type %}checked{% endif %}>
+                <label class="form-check-label" for="caffeine_intake_meds">Medications</label>
+              </div>
+            </div>
+          </div>
+          <span class="text-muted">When you have caffeine, what do you usually have?</span>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="mb-3">
+          <label class="form-label medium">Time of your First Cup in the AM</label>
+          <input id="primary_caffeine_timing" data-value="{{caffeine_and_food.primary_caffeine_timing}}" name="primary_caffeine_timing" class="form-control pick-time-morn" type="time" placeholder="When do you have caffeine?" required>
+          <span class="text-muted">When do you usually have your first source of caffeine?</span>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="mb-0">
+          <label class="form-label medium">Time of your Second Cup in the PM</label>
+          <input id="secondary_caffeine_timing" data-value="{{caffeine_and_food.secondary_caffeine_timing}}" name="secondary_caffeine_timing" class="form-control pick-time-aftn" type="time" placeholder="When do you have caffeine?">
+          <span class="text-muted">When do you usually have your second source of caffeine?</span>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div>
+      <h4 class="mb-2">Meal Timing</h4>
+    </div>
+    <div class="row mt-4">
+      <div class="col-sm-6">
+        <div class="mb-3">
+          <label class="form-label medium">Breakfast Time</label>
+          <input id="breakfast_time" name="breakfast_time" data-value="{{caffeine_and_food.breakfast_time}}" class="form-control pick-time-bfast" type="time" placeholder="Your usual breakfast time" required {% if caffeine_and_food.no_breakfast_time == '1' %}disabled{% endif %}>
+          <span class="text-muted">Select your usual <b>breakfast</b> time.</span>
+          <div class="mt-2 mb2 form-check">
+            <input type="hidden" name="no_breakfast_time" value="0">
+            <input type="checkbox" class="form-check-input" value="1"  name="no_breakfast_time" id="no_breakfast_time" onchange="enableDisableCheckboxDependents(this, 'breakfast_time')" {% if caffeine_and_food.no_breakfast_time == '1' %}checked{% endif %}>
+            <label for="no_breakfast_time" class="form-label medium">I don’t eat breakfast</label>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="mb-3">
+          <label class="form-label medium">Lunch Time</label>
+          <input id="lunch_time" name="lunch_time" data-value="{{caffeine_and_food.lunch_time}}" class="form-control pick-time-lunch" type="time" placeholder="Your usual lunch time" required {% if caffeine_and_food.no_lunch_time == '1' %}disabled{% endif %}>
+          <span class="text-muted">Select your usual <b>lunch</b> time.</span>
+          <div class="mt-2 mb2 form-check">
+            <input type="hidden" name="no_lunch_time" value="0">
+            <input type="checkbox" class="form-check-input" value="1"  name="no_lunch_time" id="no_lunch_time" onchange="enableDisableCheckboxDependents(this, 'lunch_time')" {% if caffeine_and_food.no_lunch_time == '1' %}checked{% endif %}>
+            <label for="no_lunch_time" class="form-label medium">I don’t eat lunch</label>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="mb-3">
+          <label class="form-label medium">Dinner Time</label>
+          <input id="dinner_time" name="dinner_time" data-value="{{caffeine_and_food.dinner_time}}" class="form-control pick-time-dinner" type="time" placeholder="Your usual dinner time" required {% if caffeine_and_food.no_dinner_time == '1' %}disabled{% endif %}>
+          <span class="text-muted">Select your usual <b>dinner</b> time.</span>
+          <div class="mt-2 mb2 form-check">
+            <input type="hidden" name="no_dinner_time" value="0">
+            <input type="checkbox" class="form-check-input" value="1" name="no_dinner_time" id="no_dinner_time" onchange="enableDisableCheckboxDependents(this, 'dinner_time')" {% if caffeine_and_food.no_dinner_time == '1' %}checked{% endif %}>
+            <label for="no_dinner_time" class="form-label medium">I don’t eat dinner</label>
+          </div>
+        </div>
+      </div>
+    </div>    
+  </form>
+</div>
