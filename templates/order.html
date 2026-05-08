@@ -30,7 +30,7 @@
               <ul>
                 {% for item in order.items.all %}
                   <li>
-                    {{ item.product.name }} - ₹{{ item.product.price }}
+                    {{ item.product.name }} - ₹{{ item.product.price }} - Qty: {{ item.quantity }}
                   </li>
                 {% endfor %}
               </ul>
@@ -48,7 +48,12 @@
                 <strong>Date:</strong>
                 {{ order.created_at }}
               </p>
-
+              
+              <p>
+                <strong>Total:</strong>
+                ₹ {{ order.items.0.price }}
+              </p>
+              
             </div>
 
           </div>

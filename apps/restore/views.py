@@ -8,10 +8,12 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.staticfiles import finders
 from django.contrib import messages
 from django.utils.timezone import now
-from .models import Product,Order,OrderItem, User, UserNudge, Timezone, BaselineSurveySection, UserBaselineSurveyDetail, UserBaselineSurveySectionResponse, UserEnergyPlanSuggestion, EnergySchedule, Customer, Department
+from .models import Product,Order,OrderItem,Category, User, UserNudge, Timezone, BaselineSurveySection, UserBaselineSurveyDetail, UserBaselineSurveySectionResponse, UserEnergyPlanSuggestion, EnergySchedule, Customer, Department
 from .services import Chronotype, Apex, Horizon, Aurora
 from .utils import get_section_responses, get_user_nudge, assign_user_suggestions
 from django.http import FileResponse
+import json
+from django.http import JsonResponse
 
 ######## EXTERNAL #########
 
@@ -364,8 +366,23 @@ def customer_search(request):
     return render(request, 'customer_list.html', {'customers': customer_list, 'search_query': query})
 
 def product_list(request):
-    products = Product.objects.all()
-    return render(request, 'products.html', {'products': products})
+    categories = Category.objects.all()
+    category_id = request.GET.get('category')
+    if category_id:
+        products = Product.objects.filter(
+            category_id=category_id
+        )
+    else:
+        products = Product.objects.all()
+
+    return render(
+        request,
+        'products.html',
+        {
+            'products': products,
+            'categories': categories
+        }
+    )
 
 
 def product_search(request):
@@ -430,26 +447,63 @@ def placeorder(request):
       products = Product.objects.all()
       return render(request, 'placeorder.html', {'products': products})
     if request.method == "POST":
-      product_ids = request.POST.getlist('products')
-      print('product_ids:', product_ids)
+      payload = json.loads(request.body.decode("utf-8"))
+      print('..........')
+      print( payload)
+      selected_products = payload.get('products', [])
       customer = Customer.objects.first()
       order = Order.objects.create(
         customer=customer,
         status="Pending"
       )
-      for pid in product_ids:
-        product = Product.objects.get(id=pid)
+      for prod in selected_products:
+        product = Product.objects.get(id=prod['productId'])
         OrderItem.objects.create(
           order=order,
           product=product,
-          quantity=1,
+          quantity=prod['quantity'],
           price=product.price
           )
-      return redirect('orders')
+      return JsonResponse({
+    'status': 'success',
+    'message': 'Order placed successfully'
+    })
 def order(request):
     orders = Order.objects.select_related('customer').all()
     return render(request, 'order.html', {'orders': orders})
 def orderitems(request):
     order_items = OrderItem.objects.select_related('order', 'product').all()
+    print(order_items)
     return render(request, 'orderitems.html', {'order_items': order_items})
+def category(request):
+    categories = Category.objects.all()
+    return render(request, 'category.html', {'categories': categories})
+def add_category(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        description = request.POST.get('description')
+        category_code = request.POST.get('category_code')
+
+        Category.objects.create(
+            name=name,
+            description=description,
+            category_code=category_code
+        )
+        messages.success(request, 'Category added successfully!')
+        return redirect('category')
+    return render(request, 'category.html', {'categories': Category.objects.all()})
+def edit_category(request, category_id):
+    category = get_object_or_404(Category, id=category_id)
+
+    if request.method == 'POST':
+        category.name = request.POST.get('name')
+        category.description = request.POST.get('description')
+        category.category_code = request.POST.get('category_code')
+        category.save()
+
+        messages.success(request, 'Category updated successfully!')
+        return redirect('category')
+
+    return render(request, 'category.html', {'categories': Category.objects.all(), 'edit_category': category})
+
    

@@ -8,8 +8,9 @@
     <div class="pc-content">
         <h2>Select Products</h2>
 
-        <!-- ✅ FORM START -->
-        <form method="POST" action="{% url 'placeorder' %}">
+        <!--  FORM START -->
+        <!-- <form method="POST" action="{% url 'placeorder' %}"> -->
+            <div>
             {% csrf_token %}
 
             <div class="row">
@@ -18,13 +19,10 @@
                 <div class="col-md-4 mb-4">
                     <div class="card h-100">
                         <div class="card-body">
-                            <!-- ✅ Checkbox -->
+                            <!--  Checkbox -->
                             <div class="form-check mb-2">
-                                <input type="checkbox"
-                                       onchange="handleChange()"
-                                       class="product-checkbox"
-                                       name="products"
-                                       value="{{ product.id }}">
+                                <input type="checkbox" onchange="handleChange()" class="product-checkbox"
+                                    name="products" value="{{ product.id }}">
                             </div>
 
                             <!-- Product Details -->
@@ -36,9 +34,20 @@
                             </p>
                             {% endif %}
 
-                            <p class="fw-bold text-primary">
+                            <p class="fw-bold text-primary product-price" data-price="{{ product.price }}">
                                 ₹ {{ product.price }}
                             </p>
+
+                            <!-- Quantity Selector -->
+                            <div class="mt-3">
+                                <label class="form-label">Quantity</label>
+                                <div class="input-group input-group-sm">
+                                    <button type="button" class="btn btn-outline-secondary qty-minus" onclick="decreaseQty(this)">−</button>
+                                    <input type="number" class="form-control text-center product-qty" 
+                                        name="qty_{{ product.id }}" value="1" min="1" max="999" onchange="updatePrice(this)">
+                                    <button type="button" class="btn btn-outline-secondary qty-plus" onclick="increaseQty(this)">+</button>
+                                </div>
+                            </div>
 
                         </div>
                     </div>
@@ -47,12 +56,12 @@
 
             </div>
             <div class="text-center mt-3">
-                <button type="submit" id="buyBtn" disabled>
+                <button type="button" onclick="handleSubmit()" id="buyBtn" disabled>
                     Buy Selected Products
                 </button>
             </div>
-
-        </form>
+        </div>
+        <!-- </form> -->
 
     </div>
 </div>
@@ -61,13 +70,72 @@
 {% block custom_js %}
 
 <script>
-    handleChange = () =>{
+    handleChange = () => {
         if (document.querySelectorAll('.product-checkbox:checked').length > 0) {
             document.getElementById('buyBtn').removeAttribute('disabled');
         } else {
             document.getElementById('buyBtn').setAttribute('disabled', 'disabled');
         }
     }
+    
+    // Update price based on quantity
+    const updatePrice = (input) => {
+        const card = input.closest('.card-body');
+        const priceElement = card.querySelector('.product-price');
+        const originalPrice = parseFloat(priceElement.getAttribute('data-price'));
+        const qty = parseInt(input.value) || 1;
+        const totalPrice = (originalPrice * qty).toFixed(2);
+        priceElement.textContent = '₹ ' + totalPrice;
+    }
+    
+    // Quantity controls
+    const increaseQty = (btn) => {
+        const input = btn.parentElement.querySelector('.product-qty');
+        input.value = Math.min(parseInt(input.value) + 1, 999);
+        updatePrice(input);
+    }
+    
+    const decreaseQty = (btn) => {
+        const input = btn.parentElement.querySelector('.product-qty');
+        input.value = Math.max(parseInt(input.value) - 1, 1);
+        updatePrice(input);
+    }
+
+    function handleSubmit() {
+        const selectedProducts = [];
+        document.querySelectorAll('.product-checkbox:checked').forEach(checkbox => {
+            const productId = checkbox.value;
+            const qtyInput = checkbox.closest('.card-body').querySelector('.product-qty');
+            const quantity = parseInt(qtyInput.value) || 1;
+            selectedProducts.push({ productId, quantity });
+        });
+
+        // Send data to server
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        console.log('Selected Products:', selectedProducts);
+        fetch("{% url 'placeorder' %}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrftoken
+            },
+            body: JSON.stringify({ products: selectedProducts })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Success:", data);
+            // Optionally redirect or show a success message
+            if (data.status === 'success') {
+                window.location.href = "{% url 'orders' %}";
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            // Optionally show an error message
+        });
+    }
+ 
+    
 </script>
 <!-- 
 <script>

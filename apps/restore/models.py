@@ -225,7 +225,13 @@ class Department(models.Model):
     def __str__(self):
         return self.name
 
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField(null=True, blank=True)
+    category_code = models.CharField(max_length=50, unique=True, null=True, blank=True)
 
+    def __str__(self):
+        return self.name
 class Product(models.Model):
   name = models.CharField(max_length=255)
   description = models.TextField(null=True, blank=True)
@@ -235,6 +241,7 @@ class Product(models.Model):
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
   expires_at = models.DateTimeField(null=True, blank=True)
+  category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
 
   class Meta:
     db_table = 'products'
@@ -266,6 +273,7 @@ class OrderItem(models.Model):
   quantity = models.IntegerField(default=1)
   def __str__(self):
     return f"OrderItem {self.id} - Order {self.order.id}"
+ 
 
 # auditlog.register(Product, serialize_data=True)
 
